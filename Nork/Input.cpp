@@ -11,6 +11,7 @@ std::string Input::getInput() {
 	return input;
 }
 
+// Helper function to split string into individual "words" to be parsed later
 std::vector <std::string> Input::splitString(std::string str, char delim) {
 	while (str.back() == delim)
 		str.pop_back();
