@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+*.sln
+*.vs/
+Debug/
+Nork/Debug/
+Nork.vcxproj*
