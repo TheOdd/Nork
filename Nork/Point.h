@@ -25,5 +25,5 @@ struct Point
 		return this->x == p.x && this->y == p.y;
 	}
 
-	friend std::ostream& operator<<(std::ostream &strm, Point &p);
+	friend std::ostream& operator<<(std::ostream &strm, const Point &p);
 };

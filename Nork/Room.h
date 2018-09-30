@@ -4,9 +4,8 @@
 #include "Point.h"
 
 // Contains information pertaining to the creation and attributes of rooms. This will store objects, environmental features, layouts, etc. Also contains coordinates of room.
-class Room
+struct Room
 {
-public:
 	Point p;
 
 	// We might want to create rooms that don't have a location. (small chance though)
@@ -20,5 +19,5 @@ public:
 		p = Point(x, y);
 	}
 
-	friend std::ostream& operator<<(std::ostream &strm, const Room &r);
+	friend std::ostream& operator<<(std::ostream &strm, const Room &room);
 };

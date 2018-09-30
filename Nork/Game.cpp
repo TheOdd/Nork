@@ -3,14 +3,11 @@
 void Game::run() {
 	Input i;
 	Output o;
-	World w;
-
-	for (auto const& val : w.getRooms()) {
-		std::cout << val << std::endl;
-	}
+	
+	World world;
 
 	while (true) {
 		// Run loop
-		
+		i.getActions();
 	}
 }
