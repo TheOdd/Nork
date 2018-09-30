@@ -27,7 +27,3 @@ struct Point
 
 	friend std::ostream& operator<<(std::ostream &strm, Point &p);
 };
-
-std::ostream& operator<<(std::ostream &strm, Point &p) {
-	return strm << "(" << p.x << ", " << p.y << ")";
-}

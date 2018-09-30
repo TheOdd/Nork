@@ -22,7 +22,3 @@ public:
 
 	friend std::ostream& operator<<(std::ostream &strm, const Room &r);
 };
-
-std::ostream& operator<<(std::ostream &strm, const Room &r) {
-	return strm << r.p;
-}
