@@ -45,3 +45,4 @@ Nork.vcxproj*
 .directory
 *.pro
 *.pro.user
+.leu
