@@ -17,12 +17,12 @@ bool Level::roomExists(Point pos) {
 	return std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.p == pos; }) != grid.end();
 }
 
-void Level::addRoom(int relativePos_x, int relativePos_y, int playerPos_x, int playerPos_y) {
-	addRoom(Point(relativePos_x, relativePos_y) + Point(playerPos_x, playerPos_y));
+void Level::addRoomRelative(int relativePos_x, int relativePos_y) {
+	addRoom(Point(relativePos_x, relativePos_y) + PlayerState().p);
 }
 
-void Level::addRoom(Point relativePos, Point playerPos) {
-	addRoom(Point(playerPos + relativePos));
+void Level::addRoomRelative(Point relativePos) {
+	addRoom(Point(PlayerState().p + relativePos));
 }
 
 void Level::addRoom(int absolutePos_x, int absolutePos_y) {

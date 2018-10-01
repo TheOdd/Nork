@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Room.h"
 #include "Point.h"
+#include "PlayerState.h"
 
 /* A level is a collection of rooms that can be consecutively traversed. Levels can be contained within other levels too. 
  For instance, the overworld is a level, but so is a dungeon contained within it. This is what the world class used to be, but it's been repurposed.
@@ -22,8 +23,9 @@ public:
 	bool roomExists(int pos_x, int pos_y);
 	bool roomExists(Point pos);
 
-	void addRoom(int relativePos_x, int relativePos_y, int playerPos_x, int playerPos_y);
-	void addRoom(Point relativePos, Point playerPos);
+	void addRoomRelative(int relativePos_x, int relativePos_y);
+	void addRoomRelative(Point relativePos);
+
 	void addRoom(int absolutePos_x, int absolutePos_y);
 	void addRoom(Point absolutePos);
 
