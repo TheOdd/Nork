@@ -36,3 +36,7 @@
 Debug/
 Nork/Debug/
 Nork.vcxproj*
+
+# Mac Artifacts
+.DS_Store
+*.xcodeproj
