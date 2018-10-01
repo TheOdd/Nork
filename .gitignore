@@ -40,3 +40,8 @@ Nork.vcxproj*
 # Mac Artifacts
 .DS_Store
 *.xcodeproj
+
+# QT Creator Artifacts
+.directory
+*.pro
+*.pro.user
