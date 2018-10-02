@@ -23,6 +23,12 @@ public:
 	bool roomExists(int pos_x, int pos_y);
 	bool roomExists(Point pos);
 
+	void prepareRoomRelative(int relativePos_x, int relativePos_y);
+	void prepareRoomRelative(Point relativePos);
+
+	void prepareRoom(int absolutePos_x, int absolutePos_y);
+	void prepareRoom(Point absolutePos);
+
 	void addRoomRelative(int relativePos_x, int relativePos_y);
 	void addRoomRelative(Point relativePos);
 

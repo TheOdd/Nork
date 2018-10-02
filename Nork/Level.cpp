@@ -17,6 +17,27 @@ bool Level::roomExists(Point pos) {
 	return std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.p == pos; }) != grid.end();
 }
 
+void Level::prepareRoomRelative(int relativePos_x, int relativePos_y) {
+	prepareRoom(Point(relativePos_x, relativePos_y) + PlayerState().p);
+}
+
+void Level::prepareRoomRelative(Point relativePos) {
+	prepareRoom(Point(PlayerState().p + relativePos));
+}
+
+void Level::prepareRoom(int absolutePos_x, int absolutePos_y) {
+	prepareRoom(Point(absolutePos_x, absolutePos_y));
+}
+
+void Level::prepareRoom(Point absolutePos) {
+	bool exists = roomExists(absolutePos);
+
+	// TODO: Create new chunk if room doesn't exist (keeping in mind how it aligns with existing chunks)
+
+	if (exists)
+		return;
+}
+
 void Level::addRoomRelative(int relativePos_x, int relativePos_y) {
 	addRoom(Point(relativePos_x, relativePos_y) + PlayerState().p);
 }
