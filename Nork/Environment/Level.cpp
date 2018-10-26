@@ -18,32 +18,41 @@ bool Level::roomExists(Point pos) {
 }
 
 void Level::prepareRoomRelative(int relativePos_x, int relativePos_y) {
-	prepareRoom(Point(relativePos_x, relativePos_y) + PlayerState().p);
+	prepareRoom(Point(relativePos_x, relativePos_y) + PlayerState().pos);
 }
 
 void Level::prepareRoomRelative(Point relativePos) {
-	prepareRoom(Point(PlayerState().p + relativePos));
+	prepareRoom(Point(PlayerState().pos + relativePos));
 }
 
 void Level::prepareRoom(int absolutePos_x, int absolutePos_y) {
 	prepareRoom(Point(absolutePos_x, absolutePos_y));
 }
 
+// Should be called before attempting to move to any point.
 void Level::prepareRoom(Point absolutePos) {
 	bool exists = roomExists(absolutePos);
-
-	// TODO: Create new chunk if room doesn't exist (keeping in mind how it aligns with existing chunks)
-
+	
+	// Do nothing if room already exists
 	if (exists)
 		return;
+	
+	// Generate new chunk if room doesn't exist
+	Point delta = absolutePos - PlayerState().pos;
+	
+	if (delta.x == 0) { // Player moved up/down on grid
+		
+	} else if (delta.y == 0) { // Player moved left/right on grid
+		
+	}
 }
 
 void Level::addRoomRelative(int relativePos_x, int relativePos_y) {
-	addRoom(Point(relativePos_x, relativePos_y) + PlayerState().p);
+	addRoom(Point(relativePos_x, relativePos_y) + PlayerState().pos);
 }
 
 void Level::addRoomRelative(Point relativePos) {
-	addRoom(Point(PlayerState().p + relativePos));
+	addRoom(Point(PlayerState().pos + relativePos));
 }
 
 void Level::addRoom(int absolutePos_x, int absolutePos_y) {

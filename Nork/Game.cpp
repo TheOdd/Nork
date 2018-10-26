@@ -8,7 +8,7 @@ void Game::run() {
 
 	while (true) {
 		// Run loop
-		std::cout << PlayerState().p << std::endl;
+		std::cout << PlayerState().pos << std::endl;
 		ih.handle(i.getActions());
 	}
 }

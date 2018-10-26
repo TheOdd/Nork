@@ -1,3 +1,3 @@
 #include "PlayerState.h"
 
-Point PlayerState::p = Point(0, 0);
+Point PlayerState::pos = Point(0, 0);
