@@ -2,12 +2,13 @@
 
 void Game::run() {
 	Input i;
-	Output o;
-	
+	InputHandler ih;
+
 	World world;
 
 	while (true) {
 		// Run loop
-		i.getActions();
+		std::cout << PlayerState().p << std::endl;
+		ih.handle(i.getActions());
 	}
 }

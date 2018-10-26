@@ -21,6 +21,20 @@ struct Point
 		return Point(this->x - p.x, this->y - p.y);
 	}
 
+    Point& operator+=(const Point& p) {
+        this->x += p.x;
+        this->y += p.y;
+
+        return *this;
+    }
+
+    Point& operator-=(const Point& p) {
+        this->x -= p.x;
+        this->y -= p.y;
+
+        return *this;
+    }
+
 	bool operator==(const Point& p) const {
 		return this->x == p.x && this->y == p.y;
 	}

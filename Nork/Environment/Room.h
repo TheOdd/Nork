@@ -9,7 +9,7 @@ struct Room
 	Point p;
 
 	// We might want to create rooms that don't have a location. (small chance though)
-	Room() {};
+	Room() {}
 
 	Room(Point p) {
 		this->p = p;
