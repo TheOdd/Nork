@@ -1,13 +1,13 @@
 #pragma once
 
 #include "../Environment/Point.h"
+#include "../Environment/Level.h"
 
+// Stores player related values such as health, inventory, stats, position, etc.
 class PlayerState
 {
-	// Stores player related values such as health, inventory, stats, position, etc.
+
 public:
 	static Point pos;
-private:
-
 };
 

@@ -12,14 +12,22 @@
  */
 class Level 
 {
+	// Name of the level.
+	std::string name;
+
+	// Stores rooms in the level.
 	std::vector<Room> grid;
 
+	// Get rid of this because we have the world levelContainer, which would have an index.
 	// Stores the total level index; this way any new levels can have a unique index.
 	static unsigned int globalIndex;
 public:
+	// Stores the index of the instantiated level.
 	unsigned int localIndex;
 
-	Level();
+	Level(std::string name);
+
+	std::string getName();
 
 	bool roomExists(int pos_x, int pos_y);
 	bool roomExists(Point pos);

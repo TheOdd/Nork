@@ -6,6 +6,8 @@
 class World
 {
 public:
-	Level overworld;
+	static std::vector<Level> levelContainer;
+
+	Level& Overworld = levelContainer[0];
 };
 

@@ -3,10 +3,16 @@
 // Initialize globalIndex as 0.
 unsigned int Level::globalIndex = 0;
 
-Level::Level() {
+Level::Level(std::string name) {
 	// There will always be one room at 0, 0 when a level is created.
 	grid.push_back(Room(0, 0));
 	localIndex = globalIndex++;
+
+	this->name = name;
+}
+
+std::string Level::getName() {
+	return name;
 }
 
 bool Level::roomExists(int pos_x, int pos_y) {
@@ -14,7 +20,7 @@ bool Level::roomExists(int pos_x, int pos_y) {
 }
 
 bool Level::roomExists(Point pos) {
-	return std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.p == pos; }) != grid.end();
+	return std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.pos == pos; }) != grid.end();
 }
 
 void Level::prepareRoomRelative(int relativePos_x, int relativePos_y) {
@@ -70,7 +76,7 @@ void Level::removeRoom(int pos_x, int pos_y) {
 
 void Level::removeRoom(Point pos) {
 	if (roomExists(pos))
-		grid.erase(std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.p == pos; }));
+		grid.erase(std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.pos == pos; }));
 }
 
 Room Level::getRoom(int pos_x, int pos_y) {
@@ -78,7 +84,7 @@ Room Level::getRoom(int pos_x, int pos_y) {
 }
 
 Room Level::getRoom(Point pos) {
-	return *std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.p == pos; });
+	return *std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.pos == pos; });
 }
 
 std::vector<Room> Level::getRooms() {
