@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Input.h"
-#include "Output.h"
-#include "World.h"
+#include "IO/Input.h"
+#include "IO/Output.h"
+#include "Environment/World.h"
 
 class Game
 {
