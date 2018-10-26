@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Nork/Environment/Point.h"
+#include "../Environment/Point.h"
 
 class PlayerState
 {

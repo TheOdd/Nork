@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "Room.h"
 #include "Point.h"
-#include "Nork/Player/PlayerState.h"
+#include "../Player/PlayerState.h"
 
 /* A level is a collection of rooms that can be consecutively traversed. Levels can be contained within other levels too. 
  For instance, the overworld is a level, but so is a dungeon contained within it. This is what the world class used to be, but it's been repurposed.
