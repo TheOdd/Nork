@@ -1,5 +1,5 @@
 #pragma once
 
 namespace NorkConstants {
-	static const CHUNK_SIZE = 3;
+    static const unsigned int CHUNK_SIZE = 3;
 }
