@@ -9,7 +9,8 @@ struct Room
 	Point pos;
 
 	// We might want to create rooms that don't have a location. (small chance though)
-	Room() {}
+	// Update: this almost certainly won't fit into the structure of the game
+	// Room() {}
 
 	Room(Point p) {
 		pos = p;

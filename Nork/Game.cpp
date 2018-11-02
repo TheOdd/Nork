@@ -7,7 +7,7 @@ void Game::run() {
 	World world;
 
 	while (true) { // Run loop
-		std::cout << PlayerState().pos << std::endl;
+		std::cout << PlayerState::pos << std::endl;
 
 		StatusCode::InputStatus status = ih.handle(i.getInput());
 

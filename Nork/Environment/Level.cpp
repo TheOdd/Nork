@@ -1,11 +1,16 @@
 #include "Level.h"
+#include "../Player/PlayerState.h"
 
 // Initialize globalIndex as 0.
 unsigned int Level::globalIndex = 0;
 
 Level::Level(std::string name) {
 	// There will always be one room at 0, 0 when a level is created.
-	grid.push_back(Room(0, 0));
+	//grid.push_back(Room(0, 0));
+
+	// There will always be one chunk at 0, 0 when a level is created.
+	prepareRoom(0, 0);
+
 	localIndex = globalIndex++;
 
 	this->name = name;
@@ -24,11 +29,11 @@ bool Level::roomExists(Point pos) {
 }
 
 void Level::prepareRoomRelative(int relativePos_x, int relativePos_y) {
-	prepareRoom(Point(relativePos_x, relativePos_y) + PlayerState().pos);
+	prepareRoom(Point(relativePos_x, relativePos_y) + PlayerState::pos);
 }
 
 void Level::prepareRoomRelative(Point relativePos) {
-	prepareRoom(Point(PlayerState().pos + relativePos));
+	prepareRoom(Point(PlayerState::pos + relativePos));
 }
 
 void Level::prepareRoom(int absolutePos_x, int absolutePos_y) {
@@ -37,28 +42,28 @@ void Level::prepareRoom(int absolutePos_x, int absolutePos_y) {
 
 // Should be called before attempting to move to any point.
 void Level::prepareRoom(Point absolutePos) {
-	bool exists = roomExists(absolutePos);
-	
 	// Do nothing if room already exists
-	if (exists)
+	if (roomExists(absolutePos))
 		return;
-	
-	// Generate new chunk if room doesn't exist
-	Point delta = absolutePos - PlayerState().pos;
-	
-	if (delta.x == 0) { // Player moved up/down on grid
-		
-	} else if (delta.y == 0) { // Player moved left/right on grid
-		
+
+	generateChunk(absolutePos);
+}
+
+void Level::generateChunk(Point absolutePos) {
+	Point chunkLocation = Point(static_cast<unsigned int>(absolutePos.x) / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE,
+								static_cast<unsigned int>(absolutePos.y) / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE);
+
+	for(unsigned int i = 0; i < NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE; i++) {
+		addRoom(chunkLocation + Point(i % NorkConstants::CHUNK_SIZE, i / NorkConstants::CHUNK_SIZE));
 	}
 }
 
 void Level::addRoomRelative(int relativePos_x, int relativePos_y) {
-	addRoom(Point(relativePos_x, relativePos_y) + PlayerState().pos);
+	addRoom(Point(relativePos_x, relativePos_y) + PlayerState::pos);
 }
 
 void Level::addRoomRelative(Point relativePos) {
-	addRoom(Point(PlayerState().pos + relativePos));
+	addRoom(Point(PlayerState::pos + relativePos));
 }
 
 void Level::addRoom(int absolutePos_x, int absolutePos_y) {

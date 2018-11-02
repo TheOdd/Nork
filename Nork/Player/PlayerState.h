@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Environment/World.h"
 #include "../Environment/Point.h"
 #include "../Environment/Level.h"
 
@@ -9,5 +10,6 @@ class PlayerState
 
 public:
 	static Point pos;
+	static Level& activeLevel;
 };
 

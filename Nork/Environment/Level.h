@@ -4,7 +4,6 @@
 #include <algorithm>
 #include "Room.h"
 #include "Point.h"
-#include "../Player/PlayerState.h"
 #include "../Constants.h"
 
 /* A level is a collection of rooms that can be consecutively traversed. Levels can be contained within other levels too. 
@@ -17,6 +16,8 @@ class Level
 
 	// Stores rooms in the level.
 	std::vector<Room> grid;
+
+	void generateChunk(Point absolutePos);
 
 	// Get rid of this because we have the world levelContainer, which would have an index.
 	// Stores the total level index; this way any new levels can have a unique index.

@@ -4,6 +4,7 @@
 #include "IO/Input.h"
 #include "IO/Output.h"
 #include "Environment/World.h"
+#include "StatusCodes.h"
 
 class Game
 {

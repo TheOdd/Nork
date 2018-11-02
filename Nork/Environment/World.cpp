@@ -1,3 +1,3 @@
 #include "World.h"
 
-std::vector<Level> World::levelContainer { Level("Overworld") };
+std::vector<Level> World::levelContainer { Level("overworld") };
