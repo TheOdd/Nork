@@ -1,14 +1,9 @@
 #include "Input.h"
 
-std::vector <std::string> Input::getActions() {
-	std::string input = getInput();
-	return splitString(input, ' ');
-}
-
-std::string Input::getInput() {
+std::vector <std::string> Input::getInput() {
 	std::string input;
 	std::getline(std::cin, input);
-	return input;
+	return toLowerCase(splitString(input, ' '));
 }
 
 // Helper function to split string into individual "words" to be parsed later
@@ -28,4 +23,13 @@ std::vector <std::string> Input::splitString(std::string str, char delim) {
 	}
 	resultVector.push_back(str.substr(lastIndex, str.length() + 1 - lastIndex));
 	return resultVector;
+}
+
+std::vector <std::string> Input::toLowerCase(std::vector <std::string> convert) {
+	for(std::vector <std::string>::size_type i = 0; i < convert.size(); i++) {
+		std::string str = convert[i];
+		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+		convert[i] = str;
+	}
+	return convert;
 }

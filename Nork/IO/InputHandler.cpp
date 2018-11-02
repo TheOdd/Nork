@@ -1,28 +1,38 @@
 #include "InputHandler.h"
 
-StatusCode::InputStatus InputHandler::handle(std::vector<std::string> input) {
+StatusCode::InputStatus InputHandler::handle(std::vector<std::string> inputParams) {
 
-    //std::vector<string>()input.at(i)
+	std::reverse(inputParams.begin(), inputParams.end());
+	input = inputParams;
+
+	// Checks last value of the vector, which is the top level command issued by the user
+	if(input.back() == "move") {
+		input.pop_back();
+		return move();
+	} else
+		return StatusCode::InputStatus::ERR_INVALID_KEYWORD;
+}
+
+StatusCode::InputStatus InputHandler::move() {
+	// Valid directions, stored here for organizational purposes
 	std::vector<std::string> directions{"north", "south", "east", "west"};
 
-    // Loop through each word
-	for(unsigned long i = 0; i < input.size(); i++) {
-		if(input[i] == "move") {
-			if(++i < static_cast<unsigned long>(input.size()) &&
-					std::find(directions.begin(), directions.end(), input[i]) != directions.end()) {
-				if(input[i] == directions[0]) // North
-					PlayerAction().movePlayer(0, 1);
-				else if(input[i] == directions[1]) // South
-					PlayerAction().movePlayer(0, -1);
-				else if(input[i] == directions[2]) { // East
-					PlayerAction().movePlayer(1, 0); }
-				else if(input[i] == directions[3]) // West
-					PlayerAction().movePlayer(-1, 0);
-			} else
-				return StatusCode::InputStatus::ERR_INVALID_PARAM;
-		} else
-			return StatusCode::InputStatus::ERR_INVALID_KEYWORD;
-    }
+	if(input.size() < 1)
+		return StatusCode::InputStatus::ERR_MISSING_PARAM;
+	else if(input.size() > 1)
+		return StatusCode::InputStatus::ERR_EXTRA_PARAM;
+
+	if(std::find(directions.begin(), directions.end(), input[0]) != directions.end()) {
+		if(input[0] == directions[0]) // north
+			PlayerAction().movePlayer(0, 1);
+		else if(input[0] == directions[1]) // nouth
+			PlayerAction().movePlayer(0, -1);
+		else if(input[0] == directions[2]) { // nast
+			PlayerAction().movePlayer(1, 0); }
+		else if(input[0] == directions[3]) // nest
+			PlayerAction().movePlayer(-1, 0);
+	} else
+		return StatusCode::InputStatus::ERR_INVALID_PARAM;
 
 	return StatusCode::InputStatus::SUCCESS;
 }
