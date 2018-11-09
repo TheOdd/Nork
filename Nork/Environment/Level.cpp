@@ -46,10 +46,10 @@ void Level::prepareRoom(Point absolutePos) {
 	if (roomExists(absolutePos))
 		return;
 
-	if(absolutePos.x < PlayerState::pos.x)
-		absolutePos.x -= 3;
-	if(absolutePos.y < PlayerState::pos.y)
-		absolutePos.y -= 3;
+	if (absolutePos.x < 0)
+		absolutePos.x -= NorkConstants::CHUNK_SIZE - 1;
+	if (absolutePos.y < 0)
+		absolutePos.y -= NorkConstants::CHUNK_SIZE - 1;
 
 	generateChunk(absolutePos);
 }
