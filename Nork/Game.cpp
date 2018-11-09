@@ -9,6 +9,34 @@ void Game::run() {
 	while (true) { // Run loop
 		std::cout << PlayerState::pos << std::endl;
 
+		std::cout << PlayerState::activeLevel.getRooms().size() << std::endl;
+
+		int xMin = 100000, xMax = -100000, yMin = 100000, yMax = -100000;
+
+		for(Room r : PlayerState::activeLevel.getRooms()) {
+			if(r.pos.x < xMin)
+				xMin = r.pos.x;
+			if(r.pos.x > xMax)
+				xMax = r.pos.x;
+			if(r.pos.y < yMin)
+				yMin = r.pos.y;
+			if(r.pos.y > yMax)
+				yMax = r.pos.y;
+		}
+
+		for(int y = yMax; y >= yMin; y--) {
+			for(int x = xMin; x <= xMax; x++) {
+				if(PlayerState::activeLevel.roomExists(x, y)) {
+					if(PlayerState::pos == Point(x, y))
+						std::cout << "x";
+					else
+						std::cout << "0";
+				} else
+					std::cout << " ";
+			}
+			std::cout << std::endl;
+		}
+
 		StatusCode::InputStatus status = ih.handle(i.getInput());
 
 		while(status != StatusCode::InputStatus::SUCCESS) {

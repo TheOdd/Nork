@@ -46,12 +46,17 @@ void Level::prepareRoom(Point absolutePos) {
 	if (roomExists(absolutePos))
 		return;
 
+	if(absolutePos.x < PlayerState::pos.x)
+		absolutePos.x -= 3;
+	if(absolutePos.y < PlayerState::pos.y)
+		absolutePos.y -= 3;
+
 	generateChunk(absolutePos);
 }
 
 void Level::generateChunk(Point absolutePos) {
-	Point chunkLocation = Point(static_cast<unsigned int>(absolutePos.x) / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE,
-								static_cast<unsigned int>(absolutePos.y) / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE);
+	Point chunkLocation = Point(absolutePos.x / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE,
+								absolutePos.y / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE);
 
 	for(unsigned int i = 0; i < NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE; i++) {
 		addRoom(chunkLocation + Point(i % NorkConstants::CHUNK_SIZE, i / NorkConstants::CHUNK_SIZE));
@@ -81,7 +86,7 @@ void Level::removeRoom(int pos_x, int pos_y) {
 
 void Level::removeRoom(Point pos) {
 	if (roomExists(pos))
-		grid.erase(std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.pos == pos; }));
+		grid.erase(std::find_if(grid.begin(), grid.end(), [&pos](Room room) { return room.pos == pos; }));
 }
 
 Room Level::getRoom(int pos_x, int pos_y) {
@@ -89,7 +94,7 @@ Room Level::getRoom(int pos_x, int pos_y) {
 }
 
 Room Level::getRoom(Point pos) {
-	return *std::find_if(grid.begin(), grid.end(), [&pos](Room room) {return room.pos == pos; });
+	return *std::find_if(grid.begin(), grid.end(), [&pos](Room room) { return room.pos == pos; });
 }
 
 std::vector<Room> Level::getRooms() {
