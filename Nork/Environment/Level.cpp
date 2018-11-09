@@ -46,15 +46,15 @@ void Level::prepareRoom(Point absolutePos) {
 	if (roomExists(absolutePos))
 		return;
 
+	generateChunk(absolutePos);
+}
+
+void Level::generateChunk(Point absolutePos) {
 	if (absolutePos.x < 0)
 		absolutePos.x -= NorkConstants::CHUNK_SIZE - 1;
 	if (absolutePos.y < 0)
 		absolutePos.y -= NorkConstants::CHUNK_SIZE - 1;
 
-	generateChunk(absolutePos);
-}
-
-void Level::generateChunk(Point absolutePos) {
 	Point chunkLocation = Point(absolutePos.x / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE,
 								absolutePos.y / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE);
 
