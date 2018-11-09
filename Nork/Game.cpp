@@ -11,7 +11,7 @@ void Game::run() {
 
 		std::cout << PlayerState::activeLevel.getRooms().size() << std::endl;
 
-		int xMin = 100000, xMax = -100000, yMin = 100000, yMax = -100000;
+		int xMin = std::numeric_limits<int>::max(), xMax = std::numeric_limits<int>::min(), yMin = std::numeric_limits<int>::max(), yMax = std::numeric_limits<int>::min();
 
 		for (Room r : PlayerState::activeLevel.getRooms()) {
 			if (r.pos.x < xMin)

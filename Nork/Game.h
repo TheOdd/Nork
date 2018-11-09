@@ -5,6 +5,7 @@
 #include "IO/Output.h"
 #include "Environment/World.h"
 #include "StatusCodes.h"
+#include <limits>
 
 class Game
 {
