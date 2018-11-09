@@ -1,12 +1,11 @@
 #include "PlayerAction.h"
 
-void PlayerAction::movePlayer(Point p) {
-	movePlayer(p.x, p.y);
-}
-
-void PlayerAction::movePlayer(int x, int y) {
-	PlayerState::activeLevel.prepareRoomRelative(x, y);
-	PlayerState::pos += Point(x, y);
+void PlayerAction::movePlayer(NorkConstants::Directions direction) {
+	if (PlayerState::activeRoom.doors[direction]) {
+		PlayerState::activeLevel.prepareRoomRelative(Point(direction));
+		PlayerState::pos += Point(direction);
+		PlayerState::activeRoom = PlayerState::activeLevel.getRoom(PlayerState::pos);
+	}
 }
 
 void PlayerAction::switchLevel(std::vector <Level>::size_type levelIndex) {

@@ -11,5 +11,6 @@ class PlayerState
 public:
 	static Point pos;
 	static Level& activeLevel;
+	static Room& activeRoom;
 };
 
