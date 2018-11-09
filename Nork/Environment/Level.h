@@ -50,8 +50,8 @@ public:
 	void removeRoom(Point pos);
 
 	// These might not work right now, they need to be tested. They are supposed to return a pointer to the room at a specified point.
-	Room getRoom(int pos_x, int pos_y);
-	Room getRoom(Point pos);
+	Room& getRoom(int pos_x, int pos_y);
+	Room& getRoom(Point pos);
 
 	// This might just be for testing? It returns the actual grid itself.
 	std::vector<Room> getRooms();

@@ -89,11 +89,11 @@ void Level::removeRoom(Point pos) {
 		grid.erase(std::find_if(grid.begin(), grid.end(), [&pos](Room room) { return room.pos == pos; }));
 }
 
-Room Level::getRoom(int pos_x, int pos_y) {
+Room& Level::getRoom(int pos_x, int pos_y) {
 	return getRoom(Point(pos_x, pos_y));
 }
 
-Room Level::getRoom(Point pos) {
+Room& Level::getRoom(Point pos) {
 	return *std::find_if(grid.begin(), grid.end(), [&pos](Room room) { return room.pos == pos; });
 }
 

@@ -43,6 +43,8 @@ void Game::run() {
 		while (status != StatusCode::InputStatus::SUCCESS) {
 
 			switch (status) {
+			case StatusCode::InputStatus::SUCCESS_QUIT:
+				return;
 			case StatusCode::InputStatus::ERR_INVALID_KEYWORD:
 				std::cout << "Invalid Keyword" << std::endl;
 				break;

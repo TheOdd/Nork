@@ -8,7 +8,7 @@
 struct Room
 {
 	Point pos;
-	bool doors[4];
+	bool doors[4] = {false, false, false, false};
 
 	// We might want to create rooms that don't have a location. (small chance though)
 	// Update: this almost certainly won't fit into the structure of the game

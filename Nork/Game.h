@@ -10,5 +10,5 @@
 class Game
 {
 public:
-	[[ noreturn ]] void run();
+	void run();
 };

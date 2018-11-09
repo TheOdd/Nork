@@ -14,6 +14,7 @@ class InputHandler
 	std::vector<std::string> input;
 
 	StatusCode::InputStatus move();
+	StatusCode::InputStatus quit();
 public:
 	StatusCode::InputStatus handle(std::vector<std::string> input);
 };
