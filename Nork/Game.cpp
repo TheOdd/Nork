@@ -13,21 +13,22 @@ void Game::run() {
 
 		int xMin = 100000, xMax = -100000, yMin = 100000, yMax = -100000;
 
-		for(Room r : PlayerState::activeLevel.getRooms()) {
-			if(r.pos.x < xMin)
+		for (Room r : PlayerState::activeLevel.getRooms()) {
+			if (r.pos.x < xMin)
 				xMin = r.pos.x;
-			if(r.pos.x > xMax)
+			if (r.pos.x > xMax)
 				xMax = r.pos.x;
-			if(r.pos.y < yMin)
+			if (r.pos.y < yMin)
 				yMin = r.pos.y;
-			if(r.pos.y > yMax)
+			if (r.pos.y > yMax)
 				yMax = r.pos.y;
 		}
 
-		for(int y = yMax; y >= yMin; y--) {
-			for(int x = xMin; x <= xMax; x++) {
-				if(PlayerState::activeLevel.roomExists(x, y)) {
-					if(PlayerState::pos == Point(x, y))
+		// Print out "map" of rooms and player's position in reference to them
+		for (int y = yMax; y >= yMin; y--) {
+			for (int x = xMin; x <= xMax; x++) {
+				if (PlayerState::activeLevel.roomExists(x, y)) {
+					if (PlayerState::pos == Point(x, y))
 						std::cout << "x";
 					else
 						std::cout << "0";
@@ -39,9 +40,9 @@ void Game::run() {
 
 		StatusCode::InputStatus status = ih.handle(i.getInput());
 
-		while(status != StatusCode::InputStatus::SUCCESS) {
+		while (status != StatusCode::InputStatus::SUCCESS) {
 
-			switch(status) {
+			switch (status) {
 			case StatusCode::InputStatus::ERR_INVALID_KEYWORD:
 				std::cout << "Invalid Keyword" << std::endl;
 				break;
