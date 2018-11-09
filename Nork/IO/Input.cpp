@@ -26,7 +26,7 @@ std::vector <std::string> Input::splitString(std::string str, char delim) {
 }
 
 std::vector <std::string> Input::toLowerCase(std::vector <std::string> convert) {
-	for(std::vector <std::string>::size_type i = 0; i < convert.size(); i++) {
+	for (std::vector <std::string>::size_type i = 0; i < convert.size(); i++) {
 		std::string str = convert[i];
 		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
 		convert[i] = str;
