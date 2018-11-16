@@ -6,6 +6,9 @@ void Game::run() {
 
 	World world;
 
+	for (Room r : PlayerState::activeLevel.getRooms())
+		std::cout << r.doors[0] << r.doors[1] << r.doors[2] << r.doors[3] << std::endl;
+
 	while (true) { // Run loop
 		std::cout << PlayerState::pos << std::endl;
 

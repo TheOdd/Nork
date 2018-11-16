@@ -16,5 +16,8 @@ public:
 	// Move player between levels
 	static void switchLevel(std::vector <Level>::size_type levelIndex);
 	static void switchLevel(Level level);
+
+	// Look around activeRoom
+	static void look();
 };
 

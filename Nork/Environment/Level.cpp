@@ -50,17 +50,55 @@ void Level::prepareRoom(Point absolutePos) {
 }
 
 void Level::generateChunk(Point absolutePos) {
-	if (absolutePos.x < 0)
-		absolutePos.x -= NorkConstants::CHUNK_SIZE - 1;
-	if (absolutePos.y < 0)
-		absolutePos.y -= NorkConstants::CHUNK_SIZE - 1;
+	// Create chunk of rooms with size of CHUNK_SIZE
+	Point chunkCorner = absolutePos;
 
-	Point chunkLocation = Point(absolutePos.x / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE,
-								absolutePos.y / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE);
+	if (chunkCorner.x < 0)
+		chunkCorner.x -= NorkConstants::CHUNK_SIZE - 1;
+	if (chunkCorner.y < 0)
+		chunkCorner.y -= NorkConstants::CHUNK_SIZE - 1;
 
-	for(unsigned int i = 0; i < NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE; i++) {
+	Point chunkLocation = Point(chunkCorner.x / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE,
+								chunkCorner.y / NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE);
+
+	for (unsigned int i = 0; i < NorkConstants::CHUNK_SIZE * NorkConstants::CHUNK_SIZE; i++)
 		addRoom(chunkLocation + Point(i % NorkConstants::CHUNK_SIZE, i / NorkConstants::CHUNK_SIZE));
-	}
+
+	std::vector<Point> stack;
+
+	stack.push_back(absolutePos);
+
+	while (stack.size() > 0) {
+		if (stack.back().x + 1 < chunkLocation.x + NorkConstants::CHUNK_SIZE
+				&& !getRoom(stack.back() + Point(NorkConstants::WEST)).generated) { // WEST
+			getRoom(stack.back()).generated = true;
+			getRoom(stack.back()).doors[NorkConstants::WEST] = true;
+			stack.push_back(stack.back() + Point(NorkConstants::WEST));
+			getRoom(stack.back()).doors[NorkConstants::EAST] = true;
+		} else if (stack.back().x - 1 > chunkLocation.x
+				   && !getRoom(stack.back() + Point(NorkConstants::EAST)).generated) { // EAST
+			getRoom(stack.back()).generated = true;
+			getRoom(stack.back()).doors[NorkConstants::EAST] = true;
+			stack.push_back(stack.back() + Point(NorkConstants::EAST));
+			getRoom(stack.back()).doors[NorkConstants::WEST] = true;
+		} else if (stack.back().y + 1 < chunkLocation.y
+				   && !getRoom(stack.back() + Point(NorkConstants::NORTH)).generated) { // NORTH
+			getRoom(stack.back()).generated = true;
+			getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
+			stack.push_back(stack.back() + Point(NorkConstants::NORTH));
+			getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
+		} else if (stack.back().y - 1 > chunkLocation.y
+				   && !getRoom(stack.back() + Point(NorkConstants::SOUTH)).generated) { // SOUTH
+			getRoom(stack.back()).generated = true;
+			getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
+			stack.push_back(stack.back() + Point(NorkConstants::SOUTH));
+			getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
+		} else {
+			if (!getRoom(stack.back()).generated)
+				getRoom(stack.back()).generated = true;
+			stack.pop_back();
+		}
+	} // End map generation loop
 }
 
 void Level::addRoomRelative(int relativePos_x, int relativePos_y) {
@@ -94,7 +132,7 @@ Room& Level::getRoom(int pos_x, int pos_y) {
 }
 
 Room& Level::getRoom(Point pos) {
-	return *std::find_if(grid.begin(), grid.end(), [&pos](Room room) { return room.pos == pos; });
+	return *std::find_if(grid.begin(), grid.end(), [&pos](Room& room) { return room.pos == pos; });
 }
 
 std::vector<Room> Level::getRooms() {
