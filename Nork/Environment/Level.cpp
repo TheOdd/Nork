@@ -68,7 +68,67 @@ void Level::generateChunk(Point absolutePos) {
 
 	stack.push_back(absolutePos);
 
+	std::vector<int> directions = {NorkConstants::NORTH, NorkConstants::SOUTH, NorkConstants::EAST, NorkConstants::WEST};
+	std::random_device rd;
+	std::mt19937 g(rd());
+
 	while (stack.size() > 0) {
+		std::shuffle(directions.begin(), directions.end(), g);
+
+		bool foundDoor = false;
+
+		for (int i : directions) {
+			switch (i) {
+			case NorkConstants::NORTH:
+				if (stack.back().y + 1 < chunkLocation.y + NorkConstants::CHUNK_SIZE
+						   && !getRoom(stack.back() + Point(NorkConstants::NORTH)).generated) { // NORTH
+					getRoom(stack.back()).generated = true;
+					getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
+					stack.push_back(stack.back() + Point(NorkConstants::NORTH));
+					getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
+					foundDoor = true;
+				}
+				break;
+			case NorkConstants::SOUTH:
+				if (stack.back().y - 1 > chunkLocation.y
+						   && !getRoom(stack.back() + Point(NorkConstants::SOUTH)).generated) { // SOUTH
+					getRoom(stack.back()).generated = true;
+					getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
+					stack.push_back(stack.back() + Point(NorkConstants::SOUTH));
+					getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
+					foundDoor = true;
+				}
+				break;
+			case NorkConstants::EAST:
+				if (stack.back().x + 1 < chunkLocation.x + NorkConstants::CHUNK_SIZE
+						&& !getRoom(stack.back() + Point(NorkConstants::EAST)).generated) { // EAST
+					getRoom(stack.back()).generated = true;
+					getRoom(stack.back()).doors[NorkConstants::EAST] = true;
+					stack.push_back(stack.back() + Point(NorkConstants::EAST));
+					getRoom(stack.back()).doors[NorkConstants::WEST] = true;
+					foundDoor = true;
+				}
+				break;
+			case NorkConstants::WEST:
+				if (stack.back().x - 1 > chunkLocation.x
+						   && !getRoom(stack.back() + Point(NorkConstants::WEST)).generated) { // WEST
+					getRoom(stack.back()).generated = true;
+					getRoom(stack.back()).doors[NorkConstants::WEST] = true;
+					stack.push_back(stack.back() + Point(NorkConstants::WEST));
+					getRoom(stack.back()).doors[NorkConstants::EAST] = true;
+					foundDoor = true;
+				}
+				break;
+			}
+		}
+
+		if (!foundDoor) {
+			if (!getRoom(stack.back()).generated)
+				getRoom(stack.back()).generated = true;
+			stack.pop_back();
+		}
+
+		/*
 		if (stack.back().x + 1 < chunkLocation.x + NorkConstants::CHUNK_SIZE
 				&& !getRoom(stack.back() + Point(NorkConstants::EAST)).generated) { // EAST
 			getRoom(stack.back()).generated = true;
@@ -98,6 +158,7 @@ void Level::generateChunk(Point absolutePos) {
 				getRoom(stack.back()).generated = true;
 			stack.pop_back();
 		}
+		*/
 
 		/* minor debug info
 		for (Point p : stack) {

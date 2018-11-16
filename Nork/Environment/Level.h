@@ -5,6 +5,7 @@
 #include "Room.h"
 #include "Point.h"
 #include "../Constants.h"
+#include <random>
 #include <iostream>
 
 /* A level is a collection of rooms that can be consecutively traversed. Levels can be contained within other levels too. 
