@@ -70,18 +70,18 @@ void Level::generateChunk(Point absolutePos) {
 
 	while (stack.size() > 0) {
 		if (stack.back().x + 1 < chunkLocation.x + NorkConstants::CHUNK_SIZE
-				&& !getRoom(stack.back() + Point(NorkConstants::WEST)).generated) { // WEST
-			getRoom(stack.back()).generated = true;
-			getRoom(stack.back()).doors[NorkConstants::WEST] = true;
-			stack.push_back(stack.back() + Point(NorkConstants::WEST));
-			getRoom(stack.back()).doors[NorkConstants::EAST] = true;
-		} else if (stack.back().x - 1 > chunkLocation.x
-				   && !getRoom(stack.back() + Point(NorkConstants::EAST)).generated) { // EAST
+				&& !getRoom(stack.back() + Point(NorkConstants::EAST)).generated) { // EAST
 			getRoom(stack.back()).generated = true;
 			getRoom(stack.back()).doors[NorkConstants::EAST] = true;
 			stack.push_back(stack.back() + Point(NorkConstants::EAST));
 			getRoom(stack.back()).doors[NorkConstants::WEST] = true;
-		} else if (stack.back().y + 1 < chunkLocation.y
+		} else if (stack.back().x - 1 > chunkLocation.x
+				   && !getRoom(stack.back() + Point(NorkConstants::WEST)).generated) { // WEST
+			getRoom(stack.back()).generated = true;
+			getRoom(stack.back()).doors[NorkConstants::WEST] = true;
+			stack.push_back(stack.back() + Point(NorkConstants::WEST));
+			getRoom(stack.back()).doors[NorkConstants::EAST] = true;
+		} else if (stack.back().y + 1 < chunkLocation.y + NorkConstants::CHUNK_SIZE
 				   && !getRoom(stack.back() + Point(NorkConstants::NORTH)).generated) { // NORTH
 			getRoom(stack.back()).generated = true;
 			getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
@@ -98,6 +98,15 @@ void Level::generateChunk(Point absolutePos) {
 				getRoom(stack.back()).generated = true;
 			stack.pop_back();
 		}
+
+		/* minor debug info
+		for (Point p : stack) {
+			std::cout << p << ", ";
+		}
+
+		std::cout << std::endl;
+		*/
+
 	} // End map generation loop
 }
 

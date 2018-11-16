@@ -31,28 +31,6 @@ void Game::run() {
 			else
 				std::cout << "Unhandled StatusCode" << std::endl;
 
-			/*
-			switch (status) {
-			case StatusCode::InputStatus::SUCCESS_QUIT:
-				return;
-			case StatusCode::InputStatus::ERR_INVALID_KEYWORD:
-				std::cout << "Invalid Keyword" << std::endl;
-				break;
-			case StatusCode::InputStatus::ERR_INVALID_PARAM:
-				std::cout << "Invalid Parameter" << std::endl;
-				break;
-			case StatusCode::InputStatus::ERR_MISSING_PARAM:
-				std::cout << "Missing Parameter" << std::endl;
-				break;
-			case StatusCode::InputStatus::ERR_EXTRA_PARAM:
-				std::cout << "Too Many Parameters" << std::endl;
-				break;
-			default:
-				std::cout << "Unhandled StatusCode" << std::endl;
-				break;
-			}
-			*/
-
 			status = inputHandler.handle(input.getInput());
 		} // Unsuccessful input loop
 	} // End run loop

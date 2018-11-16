@@ -1,7 +1,7 @@
 #include "PlayerAction.h"
 
 void PlayerAction::movePlayer(NorkConstants::Directions direction) {
-	if (true){//PlayerState::activeRoom.doors[direction]) {
+	if (true) {//PlayerState::activeRoom.doors[direction]) {
 		PlayerState::activeLevel.prepareRoomRelative(Point(direction));
 		PlayerState::pos += Point(direction);
 		PlayerState::activeRoom = PlayerState::activeLevel.getRoom(PlayerState::pos);
@@ -27,6 +27,7 @@ void PlayerAction::look() {
 			if (PlayerState::activeRoom.doors[i]) {
 				if (doorFound)
 					std::cout << " and ";
+				doorFound = true;
 				switch (i) {
 				case 0:
 					std::cout << "the north";
