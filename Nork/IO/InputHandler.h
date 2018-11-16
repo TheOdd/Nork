@@ -13,8 +13,8 @@ class InputHandler
 	// Stores input for usage between functions
 	std::vector<std::string> input;
 
-	StatusCode::InputStatus move();
-	StatusCode::InputStatus quit();
+	StatusCode::Code move();
+	StatusCode::Code quit();
 public:
-	StatusCode::InputStatus handle(std::vector<std::string> input);
+	StatusCode::Code handle(std::vector<std::string> input);
 };

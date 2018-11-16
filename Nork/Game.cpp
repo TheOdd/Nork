@@ -1,8 +1,8 @@
 #include "Game.h"
 
 void Game::run() {
-	Input i;
-	InputHandler ih;
+	Input input;
+	InputHandler inputHandler;
 
 	World world;
 
@@ -38,10 +38,23 @@ void Game::run() {
 			std::cout << std::endl;
 		}
 
-		StatusCode::InputStatus status = ih.handle(i.getInput());
+		StatusCode::Code status = inputHandler.handle(input.getInput());
 
 		while (status != StatusCode::InputStatus::SUCCESS) {
+			if (status == StatusCode::InputStatus::SUCCESS_QUIT)
+				return;
+			else if (status == StatusCode::InputStatus::INVALID_KEYWORD)
+				std::cout << "Invalid Keyword" << std::endl;
+			else if (status == StatusCode::InputStatus::INVALID_PARAM)
+				std::cout << "Invalid Parameter" << std::endl;
+			else if (status == StatusCode::InputStatus::MISSING_PARAM)
+				std::cout << "Missing Parameter" << std::endl;
+			else if (status == StatusCode::InputStatus::EXTRA_PARAM)
+				std::cout << "Extra Parameter" << std::endl;
+			else
+				std::cout << "Unhandled StatusCode" << std::endl;
 
+			/*
 			switch (status) {
 			case StatusCode::InputStatus::SUCCESS_QUIT:
 				return;
@@ -61,8 +74,9 @@ void Game::run() {
 				std::cout << "Unhandled StatusCode" << std::endl;
 				break;
 			}
+			*/
 
-			status = ih.handle(i.getInput());
-		}
+			status = inputHandler.handle(input.getInput());
+		} // Unsuccessful input loop
 	} // End run loop
 }
