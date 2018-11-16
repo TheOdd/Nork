@@ -1,7 +1,7 @@
 #include "PlayerAction.h"
 
 void PlayerAction::movePlayer(NorkConstants::Directions direction) {
-	if (true) {//PlayerState::activeRoom.doors[direction]) {
+	if (PlayerState::activeRoom.doors[direction]) {
 		PlayerState::activeLevel.prepareRoomRelative(Point(direction));
 		PlayerState::pos += Point(direction);
 		PlayerState::activeRoom = PlayerState::activeLevel.getRoom(PlayerState::pos);

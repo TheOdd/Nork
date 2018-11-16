@@ -11,7 +11,7 @@ void Game::run() {
 	while (true) { // Run loop
 		std::cout << PlayerState::pos << std::endl;
 
-		std::cout << PlayerState::activeLevel.getRooms().size() << std::endl;
+		//std::cout << PlayerState::activeLevel.getRooms().size() << std::endl;
 
 		Debug::printMap();
 

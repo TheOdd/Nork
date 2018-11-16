@@ -77,8 +77,14 @@ void Level::generateChunk(Point absolutePos) {
 
 		bool foundDoor = false;
 
-		for (int i : directions) {
-			switch (i) {
+		/*
+		for (int j : directions)
+			std::cout << j << ", ";
+		std::cout << std::endl;
+		*/
+
+		for (unsigned long i = 0; i < directions.size(); i++) {
+			switch (directions[i]) {
 			case NorkConstants::NORTH:
 				if (stack.back().y + 1 < chunkLocation.y + NorkConstants::CHUNK_SIZE
 						   && !getRoom(stack.back() + Point(NorkConstants::NORTH)).generated) { // NORTH
@@ -87,16 +93,18 @@ void Level::generateChunk(Point absolutePos) {
 					stack.push_back(stack.back() + Point(NorkConstants::NORTH));
 					getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
 					foundDoor = true;
+					//std::cout << "North" << std::endl;
 				}
 				break;
 			case NorkConstants::SOUTH:
-				if (stack.back().y - 1 > chunkLocation.y
+				if (stack.back().y - 1 >= chunkLocation.y
 						   && !getRoom(stack.back() + Point(NorkConstants::SOUTH)).generated) { // SOUTH
 					getRoom(stack.back()).generated = true;
 					getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
 					stack.push_back(stack.back() + Point(NorkConstants::SOUTH));
 					getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
 					foundDoor = true;
+					//std::cout << "South" << std::endl;
 				}
 				break;
 			case NorkConstants::EAST:
@@ -107,66 +115,40 @@ void Level::generateChunk(Point absolutePos) {
 					stack.push_back(stack.back() + Point(NorkConstants::EAST));
 					getRoom(stack.back()).doors[NorkConstants::WEST] = true;
 					foundDoor = true;
+					//std::cout << "East" << std::endl;
 				}
 				break;
 			case NorkConstants::WEST:
-				if (stack.back().x - 1 > chunkLocation.x
+				if (stack.back().x - 1 >= chunkLocation.x
 						   && !getRoom(stack.back() + Point(NorkConstants::WEST)).generated) { // WEST
 					getRoom(stack.back()).generated = true;
 					getRoom(stack.back()).doors[NorkConstants::WEST] = true;
 					stack.push_back(stack.back() + Point(NorkConstants::WEST));
 					getRoom(stack.back()).doors[NorkConstants::EAST] = true;
 					foundDoor = true;
+					//std::cout << "West" << std::endl;
 				}
 				break;
 			}
+
+			if (foundDoor)
+				break;
 		}
 
 		if (!foundDoor) {
+			//std::cout << "Backtracking" << std::endl;
 			if (!getRoom(stack.back()).generated)
 				getRoom(stack.back()).generated = true;
 			stack.pop_back();
 		}
 
-		/*
-		if (stack.back().x + 1 < chunkLocation.x + NorkConstants::CHUNK_SIZE
-				&& !getRoom(stack.back() + Point(NorkConstants::EAST)).generated) { // EAST
-			getRoom(stack.back()).generated = true;
-			getRoom(stack.back()).doors[NorkConstants::EAST] = true;
-			stack.push_back(stack.back() + Point(NorkConstants::EAST));
-			getRoom(stack.back()).doors[NorkConstants::WEST] = true;
-		} else if (stack.back().x - 1 > chunkLocation.x
-				   && !getRoom(stack.back() + Point(NorkConstants::WEST)).generated) { // WEST
-			getRoom(stack.back()).generated = true;
-			getRoom(stack.back()).doors[NorkConstants::WEST] = true;
-			stack.push_back(stack.back() + Point(NorkConstants::WEST));
-			getRoom(stack.back()).doors[NorkConstants::EAST] = true;
-		} else if (stack.back().y + 1 < chunkLocation.y + NorkConstants::CHUNK_SIZE
-				   && !getRoom(stack.back() + Point(NorkConstants::NORTH)).generated) { // NORTH
-			getRoom(stack.back()).generated = true;
-			getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
-			stack.push_back(stack.back() + Point(NorkConstants::NORTH));
-			getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
-		} else if (stack.back().y - 1 > chunkLocation.y
-				   && !getRoom(stack.back() + Point(NorkConstants::SOUTH)).generated) { // SOUTH
-			getRoom(stack.back()).generated = true;
-			getRoom(stack.back()).doors[NorkConstants::SOUTH] = true;
-			stack.push_back(stack.back() + Point(NorkConstants::SOUTH));
-			getRoom(stack.back()).doors[NorkConstants::NORTH] = true;
-		} else {
-			if (!getRoom(stack.back()).generated)
-				getRoom(stack.back()).generated = true;
-			stack.pop_back();
-		}
-		*/
-
-		/* minor debug info
+		/*/ minor debug info
 		for (Point p : stack) {
 			std::cout << p << ", ";
 		}
 
 		std::cout << std::endl;
-		*/
+		/*/
 
 	} // End map generation loop
 }
